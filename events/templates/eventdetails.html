@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  {% comment %} <link rel="stylesheet" href="{% static 'css/output.css' %}"/> {% endcomment %}
+
+</head>
+<body class="bg-gray-50 text-blue-950 font-sans">
+
+  <header>
+
+  <nav>
+    <div class="flex flex-wrap justify-around items-center bg-gray-900 text-white p-4">
+
+        <div class="flex items-center gap-4">
+          <img src="{% static 'images/images.png' %}" alt="Event Image" class="w-16 rounded-full" />
+
+          <h1 class="text-3xl font-extrabold tracking-widest">EVENTIFY</h1>
+        </div>
+
+      <div>
+        <ul class="flex flex-wrap items-center gap-6 text-lg">
+          <a href="{% url 'home' %}" class="hover:text-orange-500 cursor-pointer font-medium tracking-wide text-white">HOME</a>
+          <a href="{% url 'dashboard' %}" class="hover:text-orange-500 cursor-pointer font-medium tracking-wide text-white">DASHBOARD</a>
+          <a href="{% url 'create-event' %}" class="hover:text-orange-500 cursor-pointer font-medium tracking-wide text-white">CREATE EVENT</a>
+          <a href="{% url 'create-category' %}" class="hover:text-orange-500 cursor-pointer font-medium tracking-wide text-white">CREATE CATEGORY</a>
+          <a href="{% url 'create-participant' %}" class="hover:text-orange-500 cursor-pointer font-medium tracking-wide text-white">CREATE PARTICIPANT</a>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+        <div class="relative bg-gradient-to-r from-red-600 to-orange-500 h-[20rem]">
+          <div class="absolute inset-0 flex flex-col justify-center items-center px-4">
+        
+            <div class="text-white text-5xl font-medium text-center mb-6">
+              EVENT DETAILS
+            </div>
+          </div>
+        </div>
+      </header>
+
+
+  <main class="max-w-7xl mx-auto mt-20 rounded-lg shadow-lg overflow-hidden bg-white">
+
+  <div class="flex flex-col md:flex-col lg:flex-row xl:flex-row 2xl:flex-row">
+
+    <div class='p-5 w-1/3'>
+      <img src="{% static 'images/event-1.jpg' %}" alt="{{ event.name }}" class='w-full'>
+    </div>
+
+    <div class="bg-white p-8 flex flex-col justify-center w-2/3">
+      <p class="font-normal text-sm text-gray-400">{{ event.category.name }}</p>
+      <h1 class="text-3xl font-bold">{{ event.name }}</h1>
+
+  <div class='flex flex-col md:flex-col lg:flex-row xl:flex-row 2xl:flex-row gap-4 mt-4 mb-6'>
+    <div class=' px-4 py-2 bg-gray-100 flex gap-4 items-center'>
+     <div><i class="fa-solid fa-2x fa-calendar-days text-yellow-400"></i></div>
+      <div><p class="font-semibold text-sm text-gray-500">Event Date</p>
+      <p class='font-semibold text-md'> {{ event.date|date:"F j, Y" }}</p></div>
+    </div>
+
+    <div class=' px-4 py-2 bg-gray-100 flex gap-4 items-center'>
+      <div><i class="fa-solid fa-2x fa-clock text-yellow-400"></i></div>
+      <div><p class="font-semibold text-sm text-gray-500">Event Time</p>
+      <p class='font-semibold text-md'> {{ event.time|date:"g:i A" }}</p></div>
+    </div>
+
+    <div class=' px-4 py-2 bg-gray-100 flex gap-4 items-center'>
+      <div><i class="fa-solid fa-2x fa-location-dot text-yellow-400"></i></div>
+      <div><p class="font-semibold text-sm text-gray-500">Event Location</p>
+      <p class='font-semibold text-md'> {{ event.location }} </p></div>
+    </div>
+
+  </div>
+      <p class="font-semibold text-sm">{{ event.description }}</p>
+
+      <section>
+        <h2 class="text-md font-bold text-gray-700 mt-4 mb-4 border-b pb-2">Participant List</h2>
+        {% if event.participants.all %}
+          <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
+            {% for participant in event.participants.all %}
+              <div class="bg-gray-950 text-white px-4 py-2 rounded font-bold text-sm">{{ participant.name }}</div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="text-gray-950 text-md">No Participants!</p>
+        {% endif %}
+      </section>
+
+    </div>
+
+  </div>
+ 
+    </main>
+
+      <footer class="bg-gray-950 text-white text-center p-10 mt-10 font-bold">
+        <p>&copy; 2025 EVENTIFY. All rights reserved.</p>
+        <p>Privacy Policy | Terms of Service</p>
+      </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Form</title>
+    <script src="https://cdn.tailwindcss.com"></script> 
+    {% comment %} <link rel="stylesheet" href="{% static 'css/output.css' %}"/> {% endcomment %}
+</head>
+<body>
+
+  <nav>
+    <div class="flex flex-wrap justify-around items-center bg-gray-900 text-white p-4">
+
+        <div class="flex items-center gap-4">
+          <img src="{% static 'images/images.png' %}" alt="Event Image" class="w-16 rounded-full" />
+
+          <h1 class="text-3xl font-extrabold tracking-widest">EVENTIFY</h1>
+        </div>
+
+      <div>
+        <ul class="flex flex-wrap items-center gap-6 text-lg">
+          <a href="{% url 'home' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">HOME</a>
+          <a href="{% url 'dashboard' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">DASHBOARD</a>
+          <a href="{% url 'create-event' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE EVENT</a>
+          <a href="{% url 'create-category' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE CATEGORY</a>
+          <a href="{% url 'create-participant' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE PARTICIPANT</a>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+   <div>
+    {% if messages %}
+    {% for message in messages %}
+    
+    <div class="px-2 py-1 {% if message.tags == 'success' %}bg-orange-500 text-white font-bold text-md{% endif %}">{{message}}</div>
+
+    {% endfor %}
+    {% endif %}
+   </div>
+
+   <div class="w-1/2 mx-auto mt-8">
+    <p class='font-bold text-2xl'>Category Form</p>
+
+   <form method="POST" class="space-y-5 mb-5">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="bg-blue-600 px-3 py-2 text-white mt-5 rounded-md">Submit</button>
+   </form>
+
+</div>
+
+<footer class="bg-gray-950 text-white text-center p-10 mt-10 font-bold lg:fixed xl:fixed 2xl:fixed bottom-0 left-0 w-full">
+  <p>&copy; 2025 EVENTIFY. All rights reserved.</p>
+  <p>Privacy Policy | Terms of Service</p>
+</footer>
+
+</body>
+</html>

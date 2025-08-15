@@ -1,0 +1,187 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    {% comment %} <link rel="stylesheet" href="{% static 'css/output.css' %}"/> {% endcomment %}
+  </head>
+
+  <body class='bg-gray-50'>
+
+    <header>
+
+
+{% comment %} 1st part {% endcomment %}
+
+  <nav>
+    <div class="flex flex-wrap justify-around items-center bg-gray-900 text-white p-4">
+
+        <div class="flex items-center gap-4">
+          <img src="{% static 'images/images.png' %}" alt="Event Image" class="w-16 rounded-full" />
+
+          <h1 class="text-3xl font-extrabold tracking-widest">EVENTIFY</h1>
+        </div>
+
+      <div>
+        <ul class="flex flex-wrap items-center gap-6 text-lg">
+          <a href="{% url 'home' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">HOME</a>
+          <a href="{% url 'dashboard' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">DASHBOARD</a>
+          <a href="{% url 'create-event' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE EVENT</a>
+          <a href="{% url 'create-category' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE CATEGORY</a>
+          <a href="{% url 'create-participant' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE PARTICIPANT</a>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+
+  {% comment %} 2nd part {% endcomment %}
+
+      <div class="relative bg-gradient-to-r from-red-600 to-orange-500 h-[40rem]">
+        <div class="absolute inset-0 flex flex-col justify-center items-center px-4">
+      
+          <div class="text-white text-5xl font-medium text-center mb-6">
+            Welcome to EVENTIFY – Your Event Partner
+          </div>
+      
+          <h1 class="text-white text-3xl font-medium mb-4 text-center">Discover & Host Amazing Events</h1>
+      
+          <p class="text-white text-center max-w-xl mb-6 text-xl font-normal">
+            Your one-stop platform for managing and attending events of all kinds. From workshops to concerts, find your next experience here.
+          </p>
+
+          <form method="get" action="{% url 'home' %}" class="w-full max-w-2xl mt-4">
+            <div class="relative">
+              <input
+                type="text" name="q" 
+                placeholder="Search events by name, location or keyword..." value="{{ query }}"  
+                required
+                class="w-full py-5 pl-8 text-lg bg-white rounded-xl"/>
+              <button
+                type="submit"
+                class="absolute top-0 right-0 h-full px-8 bg-gray-200 text-gray-600 font-bold rounded-r-xl">
+                <i class="fa-solid fa-2x fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </form>
+
+      
+        </div>
+      </div>
+
+
+<section class="bg-gray-900 py-6 px-4 shadow-xl">
+  <div class='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 sm:grid-cols-1 md:grid-cols-1'>
+
+
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-2xl font-bold text-orange-500 mt-8 mb-6 tracking-wide flex justify-center">Quick Search</h2>
+
+
+      <div class="max-w-xl mb-4">
+        <form method="get" class="bg-gray-900 flex flex-col lg:flex-row xl:flex-row 2xl:flex-row md:flex-col sm:flex-col gap-3">
+
+          <div class="flex flex-col w-48">
+            <label for="start_date" class="ml-2 mb-1 font-bold text-gray-50 text-md tracking-wide">Start Date</label>
+            <input type="date" name="start_date" id="start_date"
+                   class="px-1 py-3 rounded-md text-sm w-full bg-gray-300 text-gray-950 font-bold pl-2" />
+          </div>
+
+          <div class="flex flex-col w-48">
+            <label for="end_date" class="ml-2 mb-1 font-bold text-gray-50 text-md tracking-wide">End Date</label>
+            <input type="date" name="end_date" id="end_date"
+                   class="px-1 py-3 rounded-md text-sm w-full bg-gray-300 text-gray-950 font-bold pl-2" />
+          </div>
+
+          <div class="flex items-end w-24">
+            <button type="submit"
+                    class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2.5 px-6 rounded-md font-bold text-md tracking-wide mt-2 sm:mt-2 md:mt-2 lg:mt-0 xl:mt-0 2xl:mt-0">
+              Filter
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+  </div>
+
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-2xl font-bold text-gray-50 mt-8 mb-6 tracking-wide flex justify-center">View Our Event Categories</h2>
+    <div class="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 md:grid-cols-2 sm-grid-cols-2 gap-4">
+    {% for category in categories %}
+      <a href="{% url 'home' %}?category={{category.id}}"> 
+        <p class='border-2 border-orange-400 py-2 px-3 bg-gray-900 shadow-2xl rounded-3xl flex justify-center text-orange-400 font-bold text-md mb-4'>{{category.name}}</p>  
+      </a> 
+    {% endfor %}  
+    </div>
+  </div>
+
+  </div>
+</section>
+
+
+{% comment %} 3rd part {% endcomment %}
+
+<section class="w-full px-8 py-10 mt-12 flex flex-col mx-auto">
+  <h1 class="text-5xl font-bold text-center mb-10 text-gray-900">OUR EVENTS</h1>
+
+  <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-8">
+    {% for event in events %}
+    <div class="bg-white shadow-md flex hover:shadow-lg border hover:border-orange-400">
+      
+      <div class="w-1/2 p-5">
+        <img src="{% static 'images/event-1.jpg' %}" alt="{{ event.name }}" class="h-full w-full object-fill">
+        </div>
+
+      <div class="flex flex-col justify-center pl-2 pr-4 h-full w-1/2">
+        
+        <div>
+          <h3 class="text-2xl font-bold text-gray-800">{{ event.name }}</h3>
+        </div>
+
+        <div class="flex items-center gap-2 mt-2 text-gray-400 text-sm">
+          <i class="fa-solid fa-clock text-yellow-400"></i>
+          <span>Start {{ event.time|date:"g:i A" }}</span>
+        </div>
+
+         <p class="flex items-center gap-2 text-sm text-gray-400 mt-2">
+          <i class="fa-solid fa-calendar-days text-yellow-400"></i>
+          <span>{{ event.date|date:"F j, Y" }}</span>
+        </p>
+
+        <div class="flex items-center gap-2 mt-2 text-gray-400 text-sm">
+          <i class="fa-solid fa-location-dot text-yellow-400"></i>
+          <span>{{ event.location }}</span>
+        </div>
+
+        <div class="flex items-center gap-2 mt-2 text-gray-400 text-xs">
+          <i class="fa-solid fa-user text-gray-400"></i>
+          <span>The total number of participants is {{ event.total }}</span>
+        </div>
+
+        <a href="{% url 'event-details' event.id %}"
+           class="mt-4 text-center bg-gray-100 text-gray-500 rounded-full font-normal w-1/2 text-lg px-2 py-2 hover:bg-orange-400 hover:text-white">
+           View Details
+        </a>
+    </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+    </main>
+
+    {% comment %} 4th part {% endcomment %}
+     
+    <footer class="bg-gray-950 text-white text-center p-10 mt-10 font-bold">
+      <p>&copy; 2025 EVENTIFY. All rights reserved.</p>
+      <p>Privacy Policy | Terms of Service</p>
+    </footer>
+  </body>
+</html>

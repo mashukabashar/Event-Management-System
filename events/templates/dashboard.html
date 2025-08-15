@@ -1,0 +1,363 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    {% comment %} <link rel="stylesheet" href="{% static 'css/output.css' %}"/> {% endcomment %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<style>
+    body{
+        font-family: "Inter", sans-serif;
+    }
+</style>
+
+</head>
+
+
+
+
+<body class='bg-gray-50'>
+
+
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        
+        <div class="px-2 py-1 {% if message.tags == 'success' %}bg-red-500 text-white font-bold text-md{% endif %}">{{message}}</div>
+    
+        {% endfor %}
+        {% endif %}
+    </div>
+
+
+    <nav>
+        <div class="flex flex-wrap justify-around items-center bg-gray-900 text-white p-4">
+    
+            <div class="flex items-center gap-4">
+              <img src="{% static 'images/images.png' %}" alt="Event Image" class="w-16 rounded-full" />
+    
+              <h1 class="text-3xl font-extrabold tracking-widest">EVENTIFY</h1>
+            </div>
+    
+          <div>
+            <ul class="flex flex-wrap items-center gap-6 text-lg">
+              <a href="{% url 'home' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">HOME</a>
+              <a href="{% url 'dashboard' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">DASHBOARD</a>
+              <a href="{% url 'create-event' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE EVENT</a>
+              <a href="{% url 'create-category' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE CATEGORY</a>
+              <a href="{% url 'create-participant' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE PARTICIPANT</a>
+            </ul>
+          </div>
+    
+        </div>
+    </nav>
+
+    <div class="relative bg-gradient-to-r from-red-600 to-orange-500 h-[24rem]">
+        <div class="absolute inset-0 flex flex-col justify-center items-center px-4">
+      
+          <div class="text-white text-5xl font-medium text-center mb-6">
+            WELCOME TO DASHBOARD!
+          </div>
+      
+        </div>
+    </div>
+
+<main>
+    <div class="max-w-full px-6 py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 gap-6 mb-12 bg-gray-950">
+
+        <a href="{% url 'dashboard' %}?type=category">
+            <div class="bg-gray-950 rounded-xl p-6 shadow-sm border-4 border-orange-500">
+                <h3 class="font-semibold text-orange-500 mb-4 text-lg">TOTAL CATEGORY</h3>
+    
+               <div class="flex justify-between items-start">
+    
+                <div>
+                    <p class="text-3xl font-semibold mb-1 text-orange-500">{{total_categories.total}}</p>
+                </div>
+    
+                <div class="bg-orange-100 rounded-full p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6 text-orange-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+                      </svg>
+                      
+                  </div>
+    
+               </div>
+    
+            </div>
+        </a>
+
+
+        <a href="{% url 'dashboard' %}?type=total_participants">
+        <div class="bg-gray-950 rounded-xl p-6 shadow-sm border-4 border-orange-500">
+            <h3 class="text-lg font-semibold text-orange-500 mb-4">TOTAL PARTICIPANTS</h3>
+
+           <div class="flex justify-between items-start">
+
+            <div>
+                <p class="text-3xl font-semibold mb-1 text-orange-500">{{unique_participant_count.total}}</p>
+            </div>
+
+            <div class="bg-orange-100 rounded-full p-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-orange-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                  </svg>
+                  
+              </div>
+
+           </div>
+
+        </div>
+    </a>
+
+
+
+
+        <a href="{% url 'dashboard' %}?type=total">
+        <div class="bg-gray-950 rounded-xl p-6 shadow-sm border-4 border-orange-500">
+            <h3 class="text-lg font-semibold text-orange-500 mb-4">TOTAL EVENT</h3>
+
+           <div class="flex justify-between items-start">
+
+            <div>
+                <p class="text-3xl font-semibold mb-1 text-orange-500">{{counts.total}}</p>
+            </div>
+
+            <div class="bg-orange-100 rounded-full p-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-orange-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+                  </svg>
+                  
+              </div>
+
+           </div>
+
+        </div>
+    </a>
+
+
+    <a href="{% url 'dashboard' %}?type=past_events">
+        <div class="bg-gray-950 rounded-xl p-6 shadow-sm border-4 border-orange-500">
+            <h3 class="text-lg font-semibold text-orange-500 mb-4">PAST EVENT</h3>
+
+           <div class="flex justify-between items-start">
+
+            <div>
+                <p class="text-3xl font-semibold mb-1 text-orange-500">{{counts.past_events}}</p>
+            </div>
+
+            <div class="bg-orange-100 rounded-full p-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-orange-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+              
+              </div>
+
+           </div>
+
+        </div>
+    </a>
+
+
+
+    <a href="{% url 'dashboard' %}?type=future_events">
+        <div class="bg-gray-950 rounded-xl p-6 shadow-sm border-4 border-orange-500">
+            <h3 class="text-lg font-semibold text-orange-500 mb-4">FUTURE EVENT</h3>
+
+           <div class="flex justify-between items-start">
+
+            <div>
+                <p class="text-3xl font-semibold mb-1 text-orange-500">{{counts.future_events}}</p>
+            </div>
+
+            <div class="bg-orange-100 rounded-full p-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-orange-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                  </svg>
+                  
+                  
+              
+              </div>
+
+           </div>
+
+        </div>
+    </a>
+
+    </div>
+
+
+
+
+
+    {% if type != 'total_participants' and type != 'category' %}
+
+        <p class="text-3xl font-bold mb-8 text-gray-950 tracking-wider px-8 flex justify-center">
+            {% if type == 'past_events' %} PAST EVENTS
+            {% elif type == 'future_events' %} FUTURE EVENTS
+            {% elif type == 'total' %} ALL EVENTS
+            {% else %} TODAY'S EVENTS
+            {% endif %}
+        </p>
+
+
+
+    <div class="max-w-full mx-auto mb-8 px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-8">
+
+
+        {% for event in events %}
+
+            <div class="bg-white p-8 flex flex-col justify-center shadow-xl rounded-md">
+              <p class="font-normal text-xs text-gray-400">{{ event.category.name }}</p>
+              <h1 class="text-2xl font-bold">{{ event.name }}</h1>
+        
+          <div class='flex flex-col md:flex-col lg:flex-row xl:flex-row 2xl:flex-row gap-4 mt-4 mb-6'>
+            <div class=' px-5 py-2 bg-gray-100 flex gap-4 items-center'>
+             <div><i class="fa-solid fa-calendar-days text-yellow-400"></i></div>
+              <div><p class="font-semibold text-xs text-gray-500">Event Date</p>
+              <p class='font-semibold text-sm'>{{ event.date|date:"F j, Y" }}</p></div>
+            </div>
+        
+            <div class=' px-4 py-2 bg-gray-100 flex gap-4 items-center'>
+              <div><i class="fa-solid fa-clock text-yellow-400"></i></div>
+              <div><p class="font-semibold text-xs text-gray-500">Event Time</p>
+              <p class='font-semibold text-sm'> {{ event.time|date:"g:i A" }}</p></div>
+            </div>
+        
+            <div class=' px-4 py-2 bg-gray-100 flex gap-4 items-center'>
+              <div><i class="fa-solid fa-location-dot text-yellow-400"></i></div>
+              <div><p class="font-semibold text-xs text-gray-500">Event Location</p>
+              <p class='font-semibold text-sm'> {{ event.location }} </p></div>
+            </div>
+        
+          </div>
+              <p class="font-semibold text-xs text-justify">{{ event.description }}</p>
+        
+              <section>
+                <h2 class="text-md font-bold text-gray-700 mt-4 mb-4 border-b pb-2">Participant List</h2>
+                {% if event.participants.all %}
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
+                    {% for participant in event.participants.all %}
+                      <div class="bg-gray-950 text-white px-4 py-2 rounded font-bold text-sm">{{ participant.name }}</div>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <p class="text-gray-950 text-md">No Participants!</p>
+                {% endif %}
+              </section>
+
+                <div class='mt-20 mb-6'>
+                    <a href="{% url 'update-event' event.id %}" class="w-full block text-center px-5 py-2 bg-orange-500 text-white rounded font-bold tracking-wide">Edit</a>
+                </div>
+
+                <div class='mb-6'>
+                    <form action="{% url 'delete-event' event.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="w-full block text-center px-2 py-2 bg-rose-500 text-white rounded tracking-wide font-bold">Delete</button>
+                    </form>
+                </div>
+        
+            </div>
+        
+        {% endfor %}
+        </div>
+    </div>
+{% endif %}
+
+
+
+
+{% if type == 'total_participants' %}
+
+        <p class="text-3xl font-bold mb-8 text-gray-950 tracking-wider px-8 flex justify-center">PARTICIPANT'S INFORMATION</p>
+
+
+<div class="max-w-full mx-auto mb-8 px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+        {% for p in participant %}
+        <div class="bg-white p-8 flex flex-col justify-center shadow-xl rounded-md">
+
+            <div>
+                <div class="text-gray-500 text-xl font-bold mb-2">Name: {{ p.name }}</div>
+            </div>
+
+            <div class="text-gray-500 text-sm font-bold mb-2">Email: {{ p.email }}</div>
+
+            <div class="text-gray-500 text-sm font-bold mb-6">Participated in {{ p.total }} event</div>
+
+            <div class='mb-4'>
+                <a href="{% url 'update-participant' p.id %}" class="w-full block text-center px-4 py-2 bg-orange-500 text-white rounded font-bold">Edit</a>
+            </div>
+
+             <div>
+                <form action="{% url 'delete-participant' p.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full block text-center px-3 py-2 bg-rose-500 text-white rounded font-bold">Delete</button>
+                </form>
+            </div> 
+        
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+
+
+{% if type == 'category' %}
+<p class="text-3xl font-bold mb-8 text-gray-950 tracking-wider px-8 flex justify-center">ALL CATEGORIES</p>
+
+<div class="max-w-full mx-auto mb-8 px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+
+        {% for category in categories %}
+        <div class="bg-white p-8 flex flex-col justify-center shadow-xl rounded-md">
+
+            <div>
+                <div class="text-gray-500 text-xl font-bold mb-4"><span>{{ category.name }}</span></div>
+            </div>
+
+            <div class="text-gray-500 text-sm text-justify">{{ category.description }}</div>
+
+            <div class='mb-4 mt-6'>
+                <a href="{% url 'update-category' category.id %}" class="w-full block text-center px-4 py-2 bg-orange-500 text-white rounded font-bold">Edit</a>
+            </div>
+
+             <div>
+                <form action="{% url 'delete-category' category.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full block text-center px-3 py-2 bg-rose-500 text-white rounded font-bold">Delete</button>
+                </form>
+            </div> 
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endif %}
+
+
+</main>
+
+
+
+
+    <footer class="bg-gray-950 text-white text-center p-10 mt-10 font-bold">
+        <p>&copy; 2025 EVENTIFY. All rights reserved.</p>
+        <p>Privacy Policy | Terms of Service</p>
+      </footer>
+
+</body>
+</html>
+
