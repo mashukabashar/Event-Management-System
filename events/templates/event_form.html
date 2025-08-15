@@ -14,7 +14,7 @@
     <div class="flex flex-wrap justify-around items-center bg-gray-900 text-white p-4">
 
         <div class="flex items-center gap-4">
-          <img src="{% static 'images/images.png' %}" alt="Event Image" class="w-16 rounded-full" />
+          <img src="{% static 'images/19925.png' %}" alt="Event Image" class="w-16 rounded-full" />
 
           <h1 class="text-3xl font-extrabold tracking-widest">EVENTIFY</h1>
         </div>
@@ -36,7 +36,7 @@
     {% if messages %}
     {% for message in messages %}
     
-    <div class="px-2 py-1 {% if message.tags == 'success' %}bg-orange-500 text-white font-bold text-md{% endif %}">{{message}}</div>
+    <div class="px-2 py-1 {% if message.tags == 'success' %}bg-orange-600 text-white font-bold text-md{% endif %}">{{message}}</div>
 
     {% endfor %}
     {% endif %}
@@ -49,7 +49,7 @@
    <form method="POST" class="space-y-5 mb-5">
     {% csrf_token %}
     {{form.as_p}}
-    <button type="submit" class="bg-blue-600 px-3 py-2 text-white mt-5 rounded-md">Submit</button>
+    <button type="submit" class="bg-orange-600 hover:bg-orange-700 px-3 py-2 text-white mt-5 rounded-md font-medium">Submit</button>
    </form>
 
 </div>

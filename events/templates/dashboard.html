@@ -31,7 +31,7 @@
         {% if messages %}
         {% for message in messages %}
         
-        <div class="px-2 py-1 {% if message.tags == 'success' %}bg-red-500 text-white font-bold text-md{% endif %}">{{message}}</div>
+        <div class="px-2 py-1 {% if message.tags == 'success' %}bg-rose-600 text-white font-bold text-md{% endif %}">{{message}}</div>
     
         {% endfor %}
         {% endif %}
@@ -42,7 +42,7 @@
         <div class="flex flex-wrap justify-around items-center bg-gray-900 text-white p-4">
     
             <div class="flex items-center gap-4">
-              <img src="{% static 'images/images.png' %}" alt="Event Image" class="w-16 rounded-full" />
+              <img src="{% static 'images/19925.png' %}" alt="Event Image" class="w-16 rounded-full" />
     
               <h1 class="text-3xl font-extrabold tracking-widest">EVENTIFY</h1>
             </div>
@@ -256,13 +256,13 @@
               </section>
 
                 <div class='mt-20 mb-6'>
-                    <a href="{% url 'update-event' event.id %}" class="w-full block text-center px-5 py-2 bg-orange-500 text-white rounded font-bold tracking-wide">Edit</a>
+                    <a href="{% url 'update-event' event.id %}" class="w-full block text-center px-5 py-2 bg-amber-500 text-white rounded font-bold tracking-wide">Edit</a>
                 </div>
 
                 <div class='mb-6'>
                     <form action="{% url 'delete-event' event.id %}" method="POST">
                         {% csrf_token %}
-                        <button type="submit" class="w-full block text-center px-2 py-2 bg-rose-500 text-white rounded tracking-wide font-bold">Delete</button>
+                        <button type="submit" class="w-full block text-center px-2 py-2 bg-rose-600 text-white rounded tracking-wide font-bold">Delete</button>
                     </form>
                 </div>
         
@@ -295,13 +295,13 @@
             <div class="text-gray-500 text-sm font-bold mb-6">Participated in {{ p.total }} event</div>
 
             <div class='mb-4'>
-                <a href="{% url 'update-participant' p.id %}" class="w-full block text-center px-4 py-2 bg-orange-500 text-white rounded font-bold">Edit</a>
+                <a href="{% url 'update-participant' p.id %}" class="w-full block text-center px-4 py-2 bg-amber-500 text-white rounded font-bold">Edit</a>
             </div>
 
              <div>
                 <form action="{% url 'delete-participant' p.id %}" method="POST">
                     {% csrf_token %}
-                    <button type="submit" class="w-full block text-center px-3 py-2 bg-rose-500 text-white rounded font-bold">Delete</button>
+                    <button type="submit" class="w-full block text-center px-3 py-2 bg-rose-600 text-white rounded font-bold">Delete</button>
                 </form>
             </div> 
         
@@ -330,13 +330,13 @@
             <div class="text-gray-500 text-sm text-justify">{{ category.description }}</div>
 
             <div class='mb-4 mt-6'>
-                <a href="{% url 'update-category' category.id %}" class="w-full block text-center px-4 py-2 bg-orange-500 text-white rounded font-bold">Edit</a>
+                <a href="{% url 'update-category' category.id %}" class="w-full block text-center px-4 py-2 bg-amber-500 text-white rounded font-bold">Edit</a>
             </div>
 
              <div>
                 <form action="{% url 'delete-category' category.id %}" method="POST">
                     {% csrf_token %}
-                    <button type="submit" class="w-full block text-center px-3 py-2 bg-rose-500 text-white rounded font-bold">Delete</button>
+                    <button type="submit" class="w-full block text-center px-3 py-2 bg-rose-600 text-white rounded font-bold">Delete</button>
                 </form>
             </div> 
 
