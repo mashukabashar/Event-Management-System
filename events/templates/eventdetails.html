@@ -1,39 +1,7 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Event Details</title>
-  {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
-  <link rel="stylesheet" href="{% static 'css/output.css' %}"/>
-
-</head>
-<body class="bg-gray-50 text-blue-950 font-sans">
-
-  <header>
-
-  <nav>
-    <div class="flex flex-wrap justify-around items-center bg-gray-900 text-white p-4">
-
-        <div class="flex items-center gap-4">
-          <img src="{% static 'images/19925.png' %}" alt="Event Image" class="w-16 rounded-full" />
-
-          <h1 class="text-3xl font-extrabold tracking-widest">EVENTIFY</h1>
-        </div>
-
-      <div>
-        <ul class="flex flex-wrap items-center gap-6 text-lg">
-          <a href="{% url 'home' %}" class="hover:text-orange-500 cursor-pointer font-medium tracking-wide text-white">HOME</a>
-          <a href="{% url 'dashboard' %}" class="hover:text-orange-500 cursor-pointer font-medium tracking-wide text-white">DASHBOARD</a>
-          <a href="{% url 'create-event' %}" class="hover:text-orange-500 cursor-pointer font-medium tracking-wide text-white">CREATE EVENT</a>
-          <a href="{% url 'create-category' %}" class="hover:text-orange-500 cursor-pointer font-medium tracking-wide text-white">CREATE CATEGORY</a>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
+{% block title %}Event Details{% endblock title %}
+{% block content %}
 
         <div class="relative bg-gradient-to-r from-red-600 to-orange-500 h-[20rem]">
           <div class="absolute inset-0 flex flex-col justify-center items-center px-4">
@@ -99,12 +67,7 @@
  
     </main>
 
-      <footer class="bg-gray-950 text-white text-center p-10 mt-10 font-bold">
-        <p>&copy; 2025 EVENTIFY. All rights reserved.</p>
-        <p>Privacy Policy | Terms of Service</p>
-      </footer>
+{% endblock content %}
 
-</body>
 
-</html>
 

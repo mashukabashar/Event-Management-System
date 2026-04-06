@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from events.forms import EventModelForm, CategoryModelForm, UserForm
+from events.forms import EventModelForm, CategoryModelForm
 from events.models import Category, Event
 from datetime import date
 from django.db.models import Q, Count, Max, Min, Avg
@@ -172,25 +172,6 @@ def update_category(request, id):
     return render(request, "category_form.html", context)
 
 
-def update_participant(request, id):
-
-    participant=User.objects.get(id=id)
-
-    form = UserForm(instance=participant)  
-
-    if request.method == "POST":
-        form = UserForm(request.POST, instance=participant) 
-
-        if form.is_valid():
-
-            form.save()
-            messages.success(request,'Participant Updated Successfully')
-            return redirect('update-participant', id)
-        
-    context={"form":form}
-    return render(request, "participant_form.html", context)
-
-
 def delete_event(request, id):
 
     if request.method == "POST":
@@ -216,16 +197,4 @@ def delete_category(request, id):
         messages.error(request,'Something Went Wrong!')
         return redirect('dashboard')
 
-
-def delete_participant(request, id):
-
-    if request.method == "POST":
-        participant=User.objects.get(id=id)
-        participant.delete()
-
-        messages.success(request,'Participant Deleted Successfully')
-        return redirect('dashboard')
-    else:
-        messages.error(request,'Something Went Wrong!')
-        return redirect('dashboard')
 

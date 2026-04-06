@@ -65,11 +65,4 @@ class CategoryModelForm(StyledFormMixin, forms.ModelForm):
         self.apply_styled_widgets()
 
 
-class UserForm(StyledFormMixin, forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'first_name', 'last_name']
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.apply_styled_widgets()

@@ -13,4 +13,4 @@ urlpatterns = [
 ]
 
 
-# source task_env/bin/activate
+# source env/bin/activate
