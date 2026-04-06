@@ -10,8 +10,8 @@
     <header class="bg-white shadow-md">
       <nav class="container mx-auto px-6 py-3">
         <div class="flex justify-between items-center">
-          <a href="index.html" class="text-xl font-bold text-gray-800"
-            >Taskify</a
+          <a href="#" class="text-xl font-bold text-gray-800"
+            >Eventify</a
           >
           <div class="hidden md:flex space-x-4">
             <a
@@ -19,7 +19,7 @@
               class="text-gray-600 hover:text-gray-800"
               >Dashboard</a
             >
-            <a href="#" class="text-gray-600 hover:text-gray-800">Tasks</a>
+            
             <a href="{% url "group-list" %}" class="text-gray-600 hover:text-gray-800"
               >Groups</a
             >
@@ -29,7 +29,7 @@
               >Create Group</a
             >
           </div>
-          <div class="flex items-center">
+          {% comment %} <div class="flex items-center">
             <div class="relative">
               <button
                 id="user-menu-button"
@@ -83,7 +83,7 @@
                 </svg>
               </button>
             </div>
-          </div>
+          </div> {% endcomment %}
         </div>
         <div id="mobile-menu" class="md:hidden hidden mt-4">
           <a href="#" class="block py-2 text-gray-600 hover:text-gray-800"
