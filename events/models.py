@@ -1,13 +1,5 @@
 from django.db import models
-
-class Participant(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
-
-    def __str__(self):
-        return self.name
-    
-
+from django.contrib.auth.models import User, Group
 
 
 class Category(models.Model):
@@ -29,7 +21,7 @@ class Event(models.Model):
         related_name="event"
     )
 
-    participants=models.ManyToManyField(Participant, related_name="events")
+    participants=models.ManyToManyField(User, related_name="events")
     name = models.CharField(max_length=200)
     description = models.TextField()
     date = models.DateField()

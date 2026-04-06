@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from events.forms import EventModelForm, CategoryModelForm, ParticipantModelForm
-from events.models import Category, Event, Participant
+from events.forms import EventModelForm, CategoryModelForm, UserForm
+from events.models import Category, Event
 from datetime import date
 from django.db.models import Q, Count, Max, Min, Avg
 from django.contrib import messages
 from django.utils.timezone import localdate
+from django.contrib.auth.models import User
 
 
 def home(request):
@@ -58,7 +59,7 @@ def dashboard(request):
     type=request.GET.get('type','all')
 
     events=Event.objects.select_related("category").prefetch_related("participants").all()
-    participant=Participant.objects.prefetch_related('events')
+    participant=User.objects.prefetch_related('events')
     categories = Category.objects.prefetch_related('event')
 
     counts = Event.objects.aggregate(
@@ -68,7 +69,7 @@ def dashboard(request):
         today_event=Count('id', filter=Q(date=date.today())),
     )
 
-    unique_participant_count = Participant.objects.distinct().aggregate(total=Count('id'))
+    unique_participant_count = User.objects.distinct().aggregate(total=Count('id'))
     total_categories=Category.objects.aggregate(total=Count('id'))
 
     base_query=Event.objects.select_related("category").prefetch_related("participants")
@@ -86,7 +87,7 @@ def dashboard(request):
         events=base_query.filter(Q(date=date.today()))
 
     elif type=="total_participants":
-        participant=Participant.objects.distinct().annotate(total=Count('events'))
+        participant=User.objects.distinct().annotate(total=Count('events'))
     
     elif type=='category':
         categories=Category.objects.prefetch_related('event')
@@ -135,10 +136,10 @@ def create_category(request):
 
 def create_participant(request):
     
-    form = ParticipantModelForm()  
+    form = UserForm()  
 
     if request.method == "POST":
-        form = ParticipantModelForm(request.POST)
+        form = UserForm(request.POST)
 
         if form.is_valid():
 
@@ -190,12 +191,12 @@ def update_category(request, id):
 
 def update_participant(request, id):
 
-    participant=Participant.objects.get(id=id)
+    participant=User.objects.get(id=id)
 
-    form = ParticipantModelForm(instance=participant)  
+    form = UserForm(instance=participant)  
 
     if request.method == "POST":
-        form = ParticipantModelForm(request.POST, instance=participant) 
+        form = UserForm(request.POST, instance=participant) 
 
         if form.is_valid():
 
@@ -236,7 +237,7 @@ def delete_category(request, id):
 def delete_participant(request, id):
 
     if request.method == "POST":
-        participant=Participant.objects.get(id=id)
+        participant=User.objects.get(id=id)
         participant.delete()
 
         messages.success(request,'Participant Deleted Successfully')

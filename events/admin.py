@@ -1,7 +1,7 @@
 from django.contrib import admin
-from events.models import Participant, Category, Event
+from events.models import Category, Event
 
-admin.site.register(Participant)
+# admin.site.register(Participant)
 admin.site.register(Category)
 admin.site.register(Event)
 

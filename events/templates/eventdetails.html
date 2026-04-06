@@ -86,7 +86,7 @@
         {% if event.participants.all %}
           <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
             {% for participant in event.participants.all %}
-              <div class="bg-gray-950 text-white px-4 py-2 rounded font-bold text-sm">{{ participant.name }}</div>
+              <div class="bg-gray-950 text-white px-4 py-2 rounded font-bold text-sm">{{ participant.get_full_name }}</div>
             {% endfor %}
           </div>
         {% else %}
@@ -108,3 +108,4 @@
 </body>
 
 </html>
+
