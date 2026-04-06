@@ -134,23 +134,6 @@ def create_category(request):
     return render(request, "category_form.html", context)
 
 
-def create_participant(request):
-    
-    form = UserForm()  
-
-    if request.method == "POST":
-        form = UserForm(request.POST)
-
-        if form.is_valid():
-
-            form.save()
-            messages.success(request,'Participant Created Successfully')
-            return redirect('create-participant')
-        
-    context={"form":form}
-    return render(request, "participant_form.html", context)
-
-
 def update_event(request, id):
 
     event=Event.objects.get(id=id)

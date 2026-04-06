@@ -18,7 +18,6 @@
         font-family: "Inter", sans-serif;
     }
 </style>
-
 </head>
 
 
@@ -53,7 +52,6 @@
               <a href="{% url 'dashboard' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">DASHBOARD</a>
               <a href="{% url 'create-event' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE EVENT</a>
               <a href="{% url 'create-category' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE CATEGORY</a>
-              <a href="{% url 'create-participant' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE PARTICIPANT</a>
             </ul>
           </div>
     
@@ -287,7 +285,7 @@
         <div class="bg-white p-8 flex flex-col justify-center shadow-xl rounded-md">
 
             <div>
-                <div class="text-gray-500 text-xl font-bold mb-2">Name: {{ p.first_name }}</div>
+                <div class="text-gray-500 text-xl font-bold mb-2">Name: {{ p.get_full_name }}</div>
             </div>
 
             <div class="text-gray-500 text-sm font-bold mb-2">Email: {{ p.email }}</div>
