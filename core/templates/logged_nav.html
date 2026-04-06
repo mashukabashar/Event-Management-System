@@ -1,0 +1,20 @@
+<div>
+    <ul class="flex flex-wrap items-center gap-6 text-lg">
+      <a href="{% url 'home' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">HOME</a>
+      <a href="{% url 'dashboard' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">DASHBOARD</a>
+      <a href="{% url 'create-event' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE EVENT</a>
+      <a href="{% url 'create-category' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE CATEGORY</a>
+      
+      <form method="post" action="{% url "logout" %}">
+        {% csrf_token %}
+      <button
+        class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white"
+      >
+        LOGOUT
+      </button>
+    </form>
+
+    <a href="#" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">{{request.user.username}}</a>
+    
+    </ul>
+  </div>

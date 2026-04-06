@@ -9,15 +9,15 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
         <link rel="stylesheet" href="{% static 'css/output.css' %}"/>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     
-    <style>
+        <style>
         body{
             font-family: "Inter", sans-serif;
         }
-    </style>
+        </style>
     </head>
     
 
@@ -35,35 +35,11 @@
 
         {% if request.user.is_authenticated %}
 
-        <div>
-          <ul class="flex flex-wrap items-center gap-6 text-lg">
-            <a href="{% url 'home' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">HOME</a>
-            <a href="{% url 'dashboard' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">DASHBOARD</a>
-            <a href="{% url 'create-event' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE EVENT</a>
-            <a href="{% url 'create-category' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE CATEGORY</a>
-            <form method="post" action="{% url "logout" %}">
-              {% csrf_token %}
-            <button
-              class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white"
-            >
-              LOGOUT
-            </button>
-          </form>
-          </ul>
-        </div>
+          {% include "logged_nav.html" %}
       
       
       {% else %}
-      <div>
-        <ul class="flex flex-wrap items-center gap-6 text-lg">
-          <a href="{% url 'home' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">HOME</a>
-          <a href="{% url 'dashboard' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">DASHBOARD</a>
-          <a href="{% url 'create-event' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE EVENT</a>
-          <a href="{% url 'create-category' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE CATEGORY</a>
-          <a href="{% url 'sign-in' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">SIGN IN</a>
-          <a href="{% url 'sign-up' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">SIGN UP</a>
-        </ul>
-      </div>
+          {% include "non_logged_nav.html" %}
       {% endif %}
 
     </div>
