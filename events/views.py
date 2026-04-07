@@ -7,9 +7,10 @@ from django.db.models import Q, Count, Max, Min, Avg
 from django.contrib import messages
 from django.utils.timezone import localdate
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import user_passes_test, login_required, permission_required
+from django.contrib.auth.decorators import login_required, permission_required
+from users.views import is_admin, is_user
 
-@login_required
+
 def home(request):
     events=Event.objects.select_related("category").prefetch_related("participants").all().annotate(total=Count('participants'))
 
@@ -58,7 +59,7 @@ def event_details(request,id):
 
 @login_required
 @permission_required("events.view_category", login_url='no-permission')
-def dashboard(request):
+def organizer_dashboard(request):
     type=request.GET.get('type','all')
 
     events=Event.objects.select_related("category").prefetch_related("participants").all()
@@ -206,4 +207,12 @@ def delete_category(request, id):
         messages.error(request,'Something Went Wrong!')
         return redirect('dashboard')
 
+@login_required
+def dashboard(request):
+    if is_user(request.user):
+        return redirect('user_dashboard')
+    elif is_admin(request.user):
+        return redirect('admin_dashboard')
+
+    return redirect('no-permission')
 
