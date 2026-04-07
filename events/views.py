@@ -10,7 +10,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test, login_required, permission_required
 
 @login_required
-@permission_required("events.view_category", login_url='no-permission')
 def home(request):
     events=Event.objects.select_related("category").prefetch_related("participants").all().annotate(total=Count('participants'))
 

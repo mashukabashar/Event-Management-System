@@ -15,6 +15,9 @@ from django.db.models import Prefetch
 def is_admin(user):
     return user.groups.filter(name='Admin').exists()
 
+def is_user(user):
+    return user.groups.filter(name='User').exists()
+
 def sign_up(request):
     form = CustomRegistrationForm()
     if request.method == 'POST':
@@ -113,5 +116,7 @@ def group_list(request):
     groups = Group.objects.prefetch_related('permissions').all()
     return render(request, 'admin/group_list.html', {'groups': groups})
 
-
+@user_passes_test(is_user, login_url='no-permission')
+def user_dashboard(request):
+    return render(request, 'user/user.html')
 

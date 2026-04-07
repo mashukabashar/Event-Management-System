@@ -1,10 +1,11 @@
 <div>
-    <ul class="flex flex-wrap items-center gap-6 text-lg">
+    <ul class="flex flex-wrap items-center gap-6 text-sm">
       <a href="{% url 'home' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">HOME</a>
+      <a href="{% url 'admin_dashboard' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">ADMIN DASHBOARD</a>
       <a href="{% url 'dashboard' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">ORGANIZER DASHBOARD</a>
+      <a href="{% url 'user_dashboard' %}" class="hover:text-orange-400 cursor-pointer font-medium tracking-wide text-white">USER DASHBOARD</a>
       <a href="{% url 'create-event' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE EVENT</a>
       <a href="{% url 'create-category' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE CATEGORY</a>
-      <a href="{% url 'admin_dashboard' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">ADMIN DASHBOARD</a>
       <a href="{% url 'group-list' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">GROUP LIST</a>
       <a href="{% url 'create-group' %}" class="hover:text-orange-400  cursor-pointer font-medium tracking-wide text-white">CREATE GROUP</a>
       
