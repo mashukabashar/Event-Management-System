@@ -7,8 +7,10 @@ from django.db.models import Q, Count, Max, Min, Avg
 from django.contrib import messages
 from django.utils.timezone import localdate
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import user_passes_test, login_required, permission_required
 
-
+@login_required
+@permission_required("events.view_category", login_url='no-permission')
 def home(request):
     events=Event.objects.select_related("category").prefetch_related("participants").all().annotate(total=Count('participants'))
 
@@ -49,12 +51,14 @@ def home(request):
         context={'events':events, 'categories': categories}
         return render(request, "home.html", context)
 
-
+@login_required
+@permission_required("events.view_category", login_url='no-permission')
 def event_details(request,id):
     event=Event.objects.get(id=id)
     return render(request, "eventdetails.html",{'event':event})
 
-
+@login_required
+@permission_required("events.view_category", login_url='no-permission')
 def dashboard(request):
     type=request.GET.get('type','all')
 
@@ -99,7 +103,8 @@ def dashboard(request):
 
     return render(request, "dashboard.html", context)
 
-
+@login_required
+@permission_required("events.add_event", login_url='no-permission')
 def create_event(request):
     
     form = EventModelForm()  
@@ -116,7 +121,8 @@ def create_event(request):
     context={"form":form}
     return render(request, "event_form.html", context)
 
-
+@login_required
+@permission_required("events.add_category", login_url='no-permission')
 def create_category(request):
     
     form = CategoryModelForm()  
@@ -133,7 +139,8 @@ def create_category(request):
     context={"form":form}
     return render(request, "category_form.html", context)
 
-
+@login_required
+@permission_required("events.change_event", login_url='no-permission')
 def update_event(request, id):
 
     event=Event.objects.get(id=id)
@@ -152,7 +159,8 @@ def update_event(request, id):
     context={"form":form}
     return render(request, "event_form.html", context)
 
-
+@login_required
+@permission_required("events.change_category", login_url='no-permission')
 def update_category(request, id):
 
     category=Category.objects.get(id=id)
@@ -171,7 +179,8 @@ def update_category(request, id):
     context={"form":form}
     return render(request, "category_form.html", context)
 
-
+@login_required
+@permission_required("events.delete_event", login_url='no-permission')
 def delete_event(request, id):
 
     if request.method == "POST":
@@ -184,7 +193,8 @@ def delete_event(request, id):
         messages.error(request,'Something Went Wrong!')
         return redirect('dashboard')
     
-
+@login_required
+@permission_required("events.delete_category", login_url='no-permission')
 def delete_category(request, id):
 
     if request.method == "POST":
