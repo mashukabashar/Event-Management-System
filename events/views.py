@@ -207,12 +207,11 @@ def delete_category(request, id):
         messages.error(request,'Something Went Wrong!')
         return redirect('dashboard')
 
+
 @login_required
-def dashboard(request):
-    if is_user(request.user):
-        return redirect('user_dashboard')
-    elif is_admin(request.user):
-        return redirect('admin_dashboard')
-
-    return redirect('no-permission')
-
+def rsvp_event(request, event_id):
+    if request.method == "POST":
+        event = Event.objects.get(id=event_id)
+        if request.user not in event.participants.all():
+            event.participants.add(request.user)
+    return redirect('home')

@@ -131,6 +131,21 @@
            class="mt-4 text-center bg-gray-100 text-gray-500 rounded-full font-normal w-1/2 text-lg px-2 py-2 hover:bg-orange-400 hover:text-white">
            View Details
         </a>
+
+        {% if user.is_authenticated and user in event.participants.all %}
+        <button disabled
+          class="mt-4 text-center bg-green-500 text-white rounded-full font-normal w-1/2 text-lg px-2 py-2">
+          Joined ✅
+        </button>
+      {% else %}
+        <form method="post" action="{% url 'rsvp-event' event.id %}">
+          {% csrf_token %}
+          <button type="submit"
+            class="mt-4 text-center bg-gray-100 text-gray-500 rounded-full font-normal w-1/2 text-lg px-2 py-2 hover:bg-orange-400 hover:text-white">
+            RSVP
+          </button>
+        </form>
+      {% endif %}
     </div>
     </div>
     {% endfor %}
