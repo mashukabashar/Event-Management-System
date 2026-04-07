@@ -1,5 +1,6 @@
 from django import forms
-from events.models import Participant, Category, Event
+from events.models import Category, Event
+from django.contrib.auth.models import User
 
 class StyledFormMixin:
     """ Mixing to apply style to form field"""
@@ -52,6 +53,8 @@ class EventModelForm(StyledFormMixin, forms.ModelForm):
         super().__init__(*arg, **kwarg)
         self.apply_styled_widgets()
 
+        self.fields['participants'].label_from_instance = lambda obj: obj.get_full_name() or obj.username
+
 
 
 class CategoryModelForm(StyledFormMixin, forms.ModelForm):
@@ -64,11 +67,4 @@ class CategoryModelForm(StyledFormMixin, forms.ModelForm):
         self.apply_styled_widgets()
 
 
-class ParticipantModelForm(StyledFormMixin, forms.ModelForm):
-    class Meta:
-        model = Participant
-        fields = ['name','email']
 
-    def __init__(self, *arg, **kwarg):
-        super().__init__(*arg, **kwarg)
-        self.apply_styled_widgets()

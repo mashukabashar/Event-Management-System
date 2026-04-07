@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from events.forms import EventModelForm, CategoryModelForm, ParticipantModelForm
-from events.models import Category, Event, Participant
+from events.forms import EventModelForm, CategoryModelForm
+from events.models import Category, Event
 from datetime import date
 from django.db.models import Q, Count, Max, Min, Avg
 from django.contrib import messages
 from django.utils.timezone import localdate
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 def home(request):
@@ -48,17 +50,19 @@ def home(request):
         context={'events':events, 'categories': categories}
         return render(request, "home.html", context)
 
-
+@login_required
+@permission_required("events.view_category", login_url='no-permission')
 def event_details(request,id):
     event=Event.objects.get(id=id)
     return render(request, "eventdetails.html",{'event':event})
 
-
-def dashboard(request):
+@login_required
+@permission_required("events.view_category", login_url='no-permission')
+def organizer_dashboard(request):
     type=request.GET.get('type','all')
 
     events=Event.objects.select_related("category").prefetch_related("participants").all()
-    participant=Participant.objects.prefetch_related('events')
+    participant=User.objects.prefetch_related('events')
     categories = Category.objects.prefetch_related('event')
 
     counts = Event.objects.aggregate(
@@ -68,7 +72,7 @@ def dashboard(request):
         today_event=Count('id', filter=Q(date=date.today())),
     )
 
-    unique_participant_count = Participant.objects.distinct().aggregate(total=Count('id'))
+    unique_participant_count = User.objects.distinct().aggregate(total=Count('id'))
     total_categories=Category.objects.aggregate(total=Count('id'))
 
     base_query=Event.objects.select_related("category").prefetch_related("participants")
@@ -86,7 +90,7 @@ def dashboard(request):
         events=base_query.filter(Q(date=date.today()))
 
     elif type=="total_participants":
-        participant=Participant.objects.distinct().annotate(total=Count('events'))
+        participant=User.objects.distinct().annotate(total=Count('events'))
     
     elif type=='category':
         categories=Category.objects.prefetch_related('event')
@@ -98,7 +102,8 @@ def dashboard(request):
 
     return render(request, "dashboard.html", context)
 
-
+@login_required
+@permission_required("events.add_event", login_url='no-permission')
 def create_event(request):
     
     form = EventModelForm()  
@@ -115,7 +120,8 @@ def create_event(request):
     context={"form":form}
     return render(request, "event_form.html", context)
 
-
+@login_required
+@permission_required("events.add_category", login_url='no-permission')
 def create_category(request):
     
     form = CategoryModelForm()  
@@ -132,24 +138,8 @@ def create_category(request):
     context={"form":form}
     return render(request, "category_form.html", context)
 
-
-def create_participant(request):
-    
-    form = ParticipantModelForm()  
-
-    if request.method == "POST":
-        form = ParticipantModelForm(request.POST)
-
-        if form.is_valid():
-
-            form.save()
-            messages.success(request,'Participant Created Successfully')
-            return redirect('create-participant')
-        
-    context={"form":form}
-    return render(request, "participant_form.html", context)
-
-
+@login_required
+@permission_required("events.change_event", login_url='no-permission')
 def update_event(request, id):
 
     event=Event.objects.get(id=id)
@@ -168,7 +158,8 @@ def update_event(request, id):
     context={"form":form}
     return render(request, "event_form.html", context)
 
-
+@login_required
+@permission_required("events.change_category", login_url='no-permission')
 def update_category(request, id):
 
     category=Category.objects.get(id=id)
@@ -187,26 +178,8 @@ def update_category(request, id):
     context={"form":form}
     return render(request, "category_form.html", context)
 
-
-def update_participant(request, id):
-
-    participant=Participant.objects.get(id=id)
-
-    form = ParticipantModelForm(instance=participant)  
-
-    if request.method == "POST":
-        form = ParticipantModelForm(request.POST, instance=participant) 
-
-        if form.is_valid():
-
-            form.save()
-            messages.success(request,'Participant Updated Successfully')
-            return redirect('update-participant', id)
-        
-    context={"form":form}
-    return render(request, "participant_form.html", context)
-
-
+@login_required
+@permission_required("events.delete_event", login_url='no-permission')
 def delete_event(request, id):
 
     if request.method == "POST":
@@ -219,7 +192,8 @@ def delete_event(request, id):
         messages.error(request,'Something Went Wrong!')
         return redirect('dashboard')
     
-
+@login_required
+@permission_required("events.delete_category", login_url='no-permission')
 def delete_category(request, id):
 
     if request.method == "POST":
@@ -233,15 +207,10 @@ def delete_category(request, id):
         return redirect('dashboard')
 
 
-def delete_participant(request, id):
-
+@login_required
+def rsvp_event(request, event_id):
     if request.method == "POST":
-        participant=Participant.objects.get(id=id)
-        participant.delete()
-
-        messages.success(request,'Participant Deleted Successfully')
-        return redirect('dashboard')
-    else:
-        messages.error(request,'Something Went Wrong!')
-        return redirect('dashboard')
-
+        event = Event.objects.get(id=event_id)
+        if request.user not in event.participants.all():
+            event.participants.add(request.user)
+    return redirect('home')
