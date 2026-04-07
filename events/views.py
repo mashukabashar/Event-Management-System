@@ -8,7 +8,6 @@ from django.contrib import messages
 from django.utils.timezone import localdate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, permission_required
-from users.views import is_admin, is_user
 
 
 def home(request):

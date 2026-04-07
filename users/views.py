@@ -8,13 +8,11 @@ from users.forms import LoginForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Prefetch
+from events.models import Event, Category
 
 
 def is_admin(user):
     return user.groups.filter(name='Admin').exists()
-
-def is_user(user):
-    return user.groups.filter(name='User').exists()
 
 def sign_up(request):
     form = CustomRegistrationForm()
@@ -116,5 +114,9 @@ def group_list(request):
 
 @login_required
 def user_dashboard(request):
-    return render(request, 'user/user.html')
+    rsvp_events = request.user.events.all()  
+    context = {
+        'rsvp_events': rsvp_events
+    }
+    return render(request, 'user/user.html', context)
 

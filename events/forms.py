@@ -53,6 +53,8 @@ class EventModelForm(StyledFormMixin, forms.ModelForm):
         super().__init__(*arg, **kwarg)
         self.apply_styled_widgets()
 
+        self.fields['participants'].label_from_instance = lambda obj: obj.get_full_name() or obj.username
+
 
 
 class CategoryModelForm(StyledFormMixin, forms.ModelForm):
