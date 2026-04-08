@@ -9,6 +9,9 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Prefetch
 from events.models import Event, Category
+import socket
+import logging
+from django.http import HttpResponse
 
 
 def is_admin(user):
@@ -122,3 +125,13 @@ def user_dashboard(request):
     }
     return render(request, 'user/user.html', context)
 
+logger = logging.getLogger(__name__)
+
+def smtp_test(request):
+    try:
+        conn = socket.create_connection(("smtp.gmail.com", 587), timeout=5)
+        logger.error(f"SMTP Connection success: {conn}")
+        return HttpResponse("Success - check logs")
+    except Exception as e:
+        logger.error(f"SMTP Connection failed: {e}")
+        return HttpResponse("Failed - check logs")
