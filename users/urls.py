@@ -1,5 +1,5 @@
 from django.urls import path
-from users.views import sign_up, sign_in, sign_out, admin_dashboard, assign_role, create_group, group_list, user_dashboard, activate_user, smtp_test
+from users.views import sign_up, sign_in, sign_out, admin_dashboard, assign_role, create_group, group_list, user_dashboard, activate_user
 
 urlpatterns = [
     path('sign-up/', sign_up, name="sign-up"),
@@ -14,7 +14,7 @@ urlpatterns = [
     path('admin/group-list/', group_list, name='group-list'),
     
     path('user/dashboard/', user_dashboard, name='user_dashboard'),
-    path("smtp-test/", smtp_test) 
+    # path("smtp-test/", smtp_test) 
 ]
 
 

@@ -125,24 +125,26 @@ def user_dashboard(request):
     }
     return render(request, 'user/user.html', context)
 
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
 
-def smtp_test(request):
-    try:
-        conn = socket.create_connection(("smtp.gmail.com", 587), timeout=5)
-        logger.error(f"SMTP Connection success: {conn}")
-        return HttpResponse("Success - check logs")
-    except Exception as e:
-        logger.error(f"SMTP Connection failed: {e}")
-        return HttpResponse("Failed - check logs")
+# def smtp_test(request):
+#     try:
+#         conn = socket.create_connection(("smtp.gmail.com", 587), timeout=5)
+#         logger.error(f"SMTP Connection success: {conn}")
+#         return HttpResponse("Success - check logs")
+#     except Exception as e:
+#         logger.error(f"SMTP Connection failed: {e}")
+#         return HttpResponse("Failed - check logs")
     
-import socket
-import logging
+# import socket
+# import logging
 
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
 
-try:
-    ip = socket.gethostbyname("smtp.gmail.com")
-    logger.error(f"Resolved smtp.gmail.com to {ip}")
-except Exception as e:
-    logger.error(f"DNS failed: {e}")
+# try:
+#     ip = socket.gethostbyname("smtp.gmail.com")
+#     logger.error(f"Resolved smtp.gmail.com to {ip}")
+# except Exception as e:
+#     logger.error(f"DNS failed: {e}")
+
+# 
