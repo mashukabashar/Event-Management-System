@@ -20,7 +20,7 @@ class Event(models.Model):
         on_delete=models.CASCADE,
         related_name="event"
     )
-
+    asset=models.ImageField(upload_to='event_assets/', null=True, blank=True)
     participants=models.ManyToManyField(User, related_name="events")
     name = models.CharField(max_length=200)
     description = models.TextField()
