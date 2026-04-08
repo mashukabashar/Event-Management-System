@@ -21,15 +21,15 @@ def sign_up(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data.get('password'))
+            user.is_active = False
             user.save()
             
-            # user.is_active = False
-            # messages.success(
-            #     request, 'A Confirmation mail sent. Please check your email')
+            messages.success(
+                request, 'A Confirmation mail sent. Please check your email')
             return redirect('sign-in')
 
-        # else:
-        #     print("Form is not valid")
+        else:
+            print("Form is not valid")
 
     return render(request, 'registration/registration.html', {"form": form})
 
@@ -52,18 +52,18 @@ def sign_out(request):
         return redirect('sign-in')
 
 
-# def activate_user(request, user_id, token):
-#     try:
-#         user = User.objects.get(id=user_id)
-#         if default_token_generator.check_token(user, token):
-#             user.is_active = True
-#             user.save()
-#             return redirect('sign-in')
-#         else:
-#             return HttpResponse('Invalid Id or token')    #repeated click on activation link
+def activate_user(request, user_id, token):
+    try:
+        user = User.objects.get(id=user_id)
+        if default_token_generator.check_token(user, token):
+            user.is_active = True
+            user.save()
+            return redirect('sign-in')
+        else:
+            return HttpResponse('Invalid Id or token')    #repeated click on activation link
 
-#     except User.DoesNotExist:
-#         return HttpResponse('User not found')   #id incorrect
+    except User.DoesNotExist:
+        return HttpResponse('User not found')   #id incorrect
 
 
 @user_passes_test(is_admin, login_url='no-permission')
