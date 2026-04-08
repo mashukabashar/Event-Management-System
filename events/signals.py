@@ -8,18 +8,21 @@ from events.models import Event
 
 @receiver(m2m_changed, sender=Event.participants.through)
 def send_rsvp_email(sender, instance, action, pk_set, **kwargs):
+    try:
+        if action == "post_add":  # triggered after user added
+            for user_id in pk_set:
+                user = User.objects.get(pk=user_id)
 
-    if action == "post_add":  # triggered after user added
-        for user_id in pk_set:
-            user = User.objects.get(pk=user_id)
-
-            send_mail(
-                f"RSVP Confirmation for {instance.name}",
-                f"Hi {user.username}, You have successfully RSVP'd to the event: {instance.name}. Location: {instance.location}. Date: {instance.date}.Thank you for joining!- Event Team",
-                "diyamoni422@gmail.com",
-                [user.email],
-                fail_silently=False,
-                )
+                send_mail(
+                    f"RSVP Confirmation for {instance.name}",
+                    f"Hi {user.username}, You have successfully RSVP'd to the event: {instance.name}. Location: {instance.location}. Date: {instance.date}.Thank you for joining!- Event Team",
+                    "settings.EMAIL_HOST_USER",
+                    [user.email],
+                    fail_silently=False,
+                    )
+                
+    except Exception as e:
+        print("❌ Email failed:", e)
             
 
             
