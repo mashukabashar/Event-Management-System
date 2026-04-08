@@ -4,6 +4,8 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.tokens import default_token_generator
 from django.conf import settings
 from django.core.mail import send_mail
+import logging
+logger = logging.getLogger(__name__)
 
 
 @receiver(post_save, sender=User)
@@ -18,9 +20,9 @@ def send_activation_email(sender, instance, created, **kwargs):
 
         try:
             send_mail(subject, message,
-                      settings.EMAIL_HOST_USER, recipient_list)
+                    settings.EMAIL_HOST_USER, recipient_list, fail_silently=False)
         except Exception as e:
-            print(f"Failed to send email to {instance.email}: {str(e)}")
+            logger.error(f"Activation email failed for {instance.email}: {str(e)}")
 
 
 @receiver(post_save, sender=User)
