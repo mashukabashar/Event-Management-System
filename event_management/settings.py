@@ -23,14 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insecure-@eey3v-+!i4^k9-jov$gd@*a-np%@um6q%lt*3#g!$3mr96ycq'
 # print("Your SECRET_KEY is:", SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-# CSRF_TRUSTED_ORIGINS=['https://*.onrender.com','http://127.0.0.1:8000']
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS=['https://*.onrender.com','http://127.0.0.1:8000']
 
 
 
@@ -90,26 +90,26 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Event-management-system',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'Event-management-system',
+#         'USER': 'postgres',
+#         'PASSWORD': '123456',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
+# }
 
 # Database documentation https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         # Replace this value with your local database's connection string.
-#         default='postgresql://database_of_event_management_system_user:4yT30X5XTHaVkSuKCWV60nPVgU7E9sjh@dpg-d6readfdiees73c7aceg-a.oregon-postgres.render.com/database_of_event_management_system',
-#         conn_max_age=600
-#     )
-# }
+DATABASES = {
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://event_management_database_0aft_user:aPdszFolHCl4A2zhh7dZwxcEjar8QZkn@dpg-d7ave4450q8c73at6o70-a.ohio-postgres.render.com/event_management_database_0aft',
+        conn_max_age=600
+    )
+}
 
 
 # Password validation
