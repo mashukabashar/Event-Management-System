@@ -135,3 +135,14 @@ def smtp_test(request):
     except Exception as e:
         logger.error(f"SMTP Connection failed: {e}")
         return HttpResponse("Failed - check logs")
+    
+import socket
+import logging
+
+logger = logging.getLogger(__name__)
+
+try:
+    ip = socket.gethostbyname("smtp.gmail.com")
+    logger.error(f"Resolved smtp.gmail.com to {ip}")
+except Exception as e:
+    logger.error(f"DNS failed: {e}")
