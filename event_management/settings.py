@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # -----------------------
 # Security
 # -----------------------
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY='django-insecure-@eey3v-+!i4^k9-jov$gd@*a-np%@um6q%lt*3#g!$3mr96ycq'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'http://127.0.0.1:8000']
@@ -158,7 +158,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-FRONTEND_URL='https://event-management-system-bsi8.onrender.com'
+FRONTEND_URL='http://127.0.0.1:8000'
 LOGIN_URL='sign-in'
 
 
