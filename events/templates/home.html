@@ -98,11 +98,8 @@
     <div class="bg-white shadow-md flex hover:shadow-lg border hover:border-orange-400">
       
        <div class="w-1/2 p-5">
-        <img src="{% if event.asset %}
-        {{ event.asset.url }}
-         {% else %}
-          {% static 'images/event-1.jpg' %}
-           {% endif %}"
+        <img src=
+        "{{ event.asset.url }}"
             alt="Event Image"
             class="h-full w-full object-fill">
         </div> 
