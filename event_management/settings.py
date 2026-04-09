@@ -158,21 +158,22 @@ MEDIA_ROOT=BASE_DIR/'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST="smtp.gmail.com"
-EMAIL_USE_TLS=False
-EMAIL_USE_SSL=True
-EMAIL_PORT=465
-EMAIL_HOST_USER="diyamoni422@gmail.com"
-EMAIL_HOST_PASSWORD="elbh qvcq kuip rmfu"
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
-FRONTEND_URL='https://*.onrender.com'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_HOST="smtp.gmail.com"
+# EMAIL_USE_TLS=False
+# EMAIL_USE_SSL=True
+# EMAIL_PORT=465
+# EMAIL_HOST_USER="diyamoni422@gmail.com"
+# EMAIL_HOST_PASSWORD="elbh qvcq kuip rmfu"
+
+FRONTEND_URL='https://event-management-system-bsi8.onrender.com'
 LOGIN_URL='sign-in'
 
 
-# EMAIL_HOST = config('EMAIL_HOST')
-# EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
-# EMAIL_PORT = config('EMAIL_PORT', cast=int)
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
