@@ -16,5 +16,5 @@ urlpatterns = [
     path('no-permission/', no_permission, name='no-permission')
 ]+ debug_toolbar_urls()
 
-if not config('USE_CLOUDINARY', default=True, cast=bool):
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
