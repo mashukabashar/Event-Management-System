@@ -9,6 +9,9 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Prefetch
 from events.models import Event, Category
+import socket
+import logging
+from django.http import HttpResponse
 
 
 def is_admin(user):
@@ -23,12 +26,14 @@ def sign_up(request):
             user.set_password(form.cleaned_data.get('password'))
             user.is_active = False
             user.save()
+            
             messages.success(
                 request, 'A Confirmation mail sent. Please check your email')
             return redirect('sign-in')
 
         else:
             print("Form is not valid")
+
     return render(request, 'registration/registration.html', {"form": form})
 
 
@@ -120,3 +125,26 @@ def user_dashboard(request):
     }
     return render(request, 'user/user.html', context)
 
+# logger = logging.getLogger(__name__)
+
+# def smtp_test(request):
+#     try:
+#         conn = socket.create_connection(("smtp.gmail.com", 587), timeout=5)
+#         logger.error(f"SMTP Connection success: {conn}")
+#         return HttpResponse("Success - check logs")
+#     except Exception as e:
+#         logger.error(f"SMTP Connection failed: {e}")
+#         return HttpResponse("Failed - check logs")
+    
+# import socket
+# import logging
+
+# logger = logging.getLogger(__name__)
+
+# try:
+#     ip = socket.gethostbyname("smtp.gmail.com")
+#     logger.error(f"Resolved smtp.gmail.com to {ip}")
+# except Exception as e:
+#     logger.error(f"DNS failed: {e}")
+
+# 

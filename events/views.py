@@ -109,7 +109,7 @@ def create_event(request):
     form = EventModelForm()  
 
     if request.method == "POST":
-        form = EventModelForm(request.POST)
+        form = EventModelForm(request.POST, request.FILES)
 
         if form.is_valid():
 
@@ -187,10 +187,10 @@ def delete_event(request, id):
         event.delete()
 
         messages.success(request,'Event Deleted Successfully')
-        return redirect('dashboard')
+        return redirect('organizer-dashboard')
     else:
         messages.error(request,'Something Went Wrong!')
-        return redirect('dashboard')
+        return redirect('organizer-dashboard')
     
 @login_required
 @permission_required("events.delete_category", login_url='no-permission')
@@ -201,10 +201,10 @@ def delete_category(request, id):
         category.delete()
 
         messages.success(request,'Category Deleted Successfully')
-        return redirect('dashboard')
+        return redirect('organizer-dashboard')
     else:
         messages.error(request,'Something Went Wrong!')
-        return redirect('dashboard')
+        return redirect('organizer-dashboard')
 
 
 @login_required
