@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@eey3v-+!i4^k9-jov$gd@*a-np%@um6q%lt*3#g!$3mr96ycq'
+SECRET_KEY = config('SECRET_KEY')
 # print("Your SECRET_KEY is:", SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     "debug_toolbar",
     "users.apps.UsersConfig",
-    'core.apps.CoreConfig'
+    'core.apps.CoreConfig',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -106,7 +108,7 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://event_management_database_0aft_user:aPdszFolHCl4A2zhh7dZwxcEjar8QZkn@dpg-d7ave4450q8c73at6o70-a.ohio-postgres.render.com/event_management_database_0aft',
+        default=config('DATABASE_URL'),
         conn_max_age=600
     )
 }
@@ -177,3 +179,11 @@ FRONTEND_URL='https://event-management-system-bsi8.onrender.com'
 LOGIN_URL='sign-in'
 
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': config('CLOUDINARY_API_KEY'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET'),
+}
