@@ -5,6 +5,7 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 from core.views import no_permission
 from django.conf.urls.static import static
 from django.conf import settings
+from decouple import config
 
 
 urlpatterns = [
@@ -15,4 +16,5 @@ urlpatterns = [
     path('no-permission/', no_permission, name='no-permission')
 ]+ debug_toolbar_urls()
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if not config('USE_CLOUDINARY', default=True, cast=bool):
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
